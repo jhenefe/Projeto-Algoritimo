@@ -1,0 +1,140 @@
+using System;
+using System.IO;
+using System.Text;
+
+class MainClass {
+  
+  public static void Main (string[] args) {
+    
+    string informacoesCachorro = string.Empty;
+    int identiusuario = 0;
+    int usuarioCachorro = 0;
+    int cachorroCadastrado = 0;
+    int contador1 = 0;
+    int contador2 = 0;
+    int linhaC = 0;
+
+
+    
+    //Acessar leitura do arquivo:>>
+    FileStream  acessoLeitura= new FileStream("cachorro.text",FileMode.Open,FileAccess.Read);
+
+    //Ler arquivo:>>
+    StreamReader lerCachorro =new StreamReader(acessoLeitura,Encoding.UTF8);
+    
+    //Parte cachorro:>>
+    Console.WriteLine("Digite 1 para voluntario ou 2 para dono de um cachorro: ");
+
+    identiusuario=int.Parse(Console.ReadLine());
+    
+    //Dono de um cachorro:>>
+    if(identiusuario == 2){
+      Console.WriteLine("Digite 1 cachorro cadastrado  ou 2 para cadastrar: ");
+      usuarioCachorro = int.Parse(Console.ReadLine());
+
+      //Cachorro já cadastrado:>>
+      if(usuarioCachorro == 1){
+
+        Console.WriteLine("Informe seu número de cadastro:");
+        cachorroCadastrado = int.Parse(Console.ReadLine());
+
+      }
+      //Cachorro não cadastrado:>>
+      else{
+        if(usuarioCachorro == 2){
+          
+          while (!lerCachorro.EndOfStream){
+            lerCachorro.ReadLine();
+            contador1++;
+          
+          }
+
+          acessoLeitura.Close();
+          lerCachorro.Close();
+        
+        //Acessar gravação no arquivo:>>
+          FileStream acessoGravacao = new FileStream("cachorro.text", FileMode.Append, FileAccess.Write);
+          
+        //Gravar no arquivo:>> 
+          StreamWriter gravarCachorro = new StreamWriter(acessoGravacao, Encoding.UTF8);
+
+          if(contador1 == 1 ){
+            contador1=1;
+            cachorroCadastrado = contador1;
+            gravarCachorro.WriteLine(cachorroCadastrado);
+            
+          }
+          else{
+
+            if(contador1 ==2 ){
+              contador1 = 2;
+              cachorroCadastrado = contador1;
+              gravarCachorro.WriteLine(cachorroCadastrado);
+
+            }
+
+            else{
+              while(contador1 != 0){
+                contador1 = (contador1-2);
+                contador2++;
+
+              }
+              cachorroCadastrado = contador2 + 1;
+              gravarCachorro.WriteLine(cachorroCadastrado);
+              
+            }
+
+          }
+          //Pegando informaçoes usuario
+          Console.WriteLine("Cachorro número: {0}", cachorroCadastrado);
+        
+          //Escrevendo no arquivo 
+          Console.WriteLine("Por favor preencha as informações a seguir conforme solicitado: Nome / Raça / Sexo / Cor / Porte / Horário disponível /:");
+        
+          informacoesCachorro = Console.ReadLine();
+          gravarCachorro.WriteLine(informacoesCachorro);
+        
+
+          //Fechando acesso de escrever no arquivo 
+          gravarCachorro.Close();
+          acessoGravacao.Close();
+        }
+        else{
+          Console.WriteLine("Opção invalida.Por favor reinicie o programa.");
+        }
+        
+      }
+
+
+      string [] vetorInfoDog = new string[50];
+          
+      while(!lerCachorro.EndOfStream){
+            
+        vetorInfoDog[linhaC]= lerCachorro.ReadLine();
+       
+        linhaC++;
+      }
+      acessoLeitura.Close();
+      lerCachorro.Close();
+
+      linhaC = 0;
+      while(linhaC < 50){
+        if( cachorroCadastrado == 1){
+        informacoesCachorro = vetorInfoDog[1];
+         Console.Write(informacoesCachorro);
+
+       }else{
+         informacoesCachorro = vetorInfoDog[cachorroCadastrado + 1];
+          Console.Write(informacoesCachorro);
+       }
+       linhaC ++;
+      }
+
+    
+    
+    
+    
+    }
+    
+  }
+}
