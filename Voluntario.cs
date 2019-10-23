@@ -10,7 +10,6 @@ class Voluntario{
   private string telefone;
   private string disponibilidadediaturno;
   private string bairro;
-  private string horadispo;
   string dia;
   string turno;
  //construtor
@@ -23,6 +22,23 @@ class Voluntario{
     telefone = linhainformaçoes[3];
     disponibilidadediaturno =linhainformaçoes[4];
     bairro= linhainformaçoes[5];
+    string[] vetordiaturno= disponibilidadediaturno.Split('-');
+    dia=vetordiaturno[0];
+    turno =vetordiaturno[1];
+    
+  }
+  public Voluntario(){
+   
+    
+    nome = "Jane Done";
+    idade = "indefinido";
+    cpf= "Sem numero";
+    telefone = "Sem numero";
+    disponibilidadediaturno ="Sem disponibilidade";
+    bairro= "Sem bairro";
+    dia="nenhum";
+    turno ="nenhum";
+    
   }
   
  //metodos de acesso
@@ -41,11 +57,14 @@ class Voluntario{
  public string getTelefone(){
    return telefone;
  }
- public string getDisponibilidadediaturno(){
-   return  disponibilidadediaturno;
+ public string getDia(){
+   return  dia;
  }
- public void setDisponibilidadediaturno(string dh){
-  disponibilidadediaturno= dh;
+  public string getTurno(){
+   return  turno;
+ }
+ public void setDia(string dh){
+  dia= dh;
  }
  
   public static int qtdLinhas(){
@@ -76,6 +95,7 @@ class Voluntario{
     informaçoesbasicas.Close();
     arqvoluntarios.Close();      
   }
+  
   public static Voluntario[] retornaVetorVoluntario(){
     FileStream  leituraVoluntario= new FileStream("Voluntario.text",FileMode.Open,FileAccess.Read);
     StreamReader lerinfovoluntario =new StreamReader(leituraVoluntario,Encoding.UTF8);   

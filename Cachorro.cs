@@ -6,8 +6,10 @@ class Cachorro{
   private string sexo;
   private string cor;
   private string porte;
-
-  //construtor
+  private string diaturno;
+  private string diaCachorro;
+  private string turnoCachorro;
+  private string bairroCachorro;
   public Cachorro(string cadastroCachorro){
     string[] linhas = cadastroCachorro.Split('/');
     nome = linhas[0];
@@ -15,8 +17,44 @@ class Cachorro{
     sexo = linhas[2];
     cor = linhas[3];
     porte = linhas[4];
+    diaturno =linhas[5];
+    bairroCachorro=linhas[6];
+    string []vetordiaturno= diaturno.Split('-');
+    diaCachorro=vetordiaturno[0];
+    turnoCachorro=vetordiaturno[1];
   }
    
+  public string getNome(){
+    return nome;
+  }
+
+  public  string getRaça(){
+    return raça;
+  }
+
+  public  string getSexo(){
+    return sexo;
+  }
+  public  string getCor(){
+    return cor;
+  }
+
+  public  string getPorte(){
+    return porte;
+  }
+  
+  public string getDiaCachorro(){
+    return diaCachorro;
+  } 
+
+  public string getTurnoCachorro(){
+    return turnoCachorro;
+  }
+  
+  public string getBairroCachorro(){
+    return bairroCachorro;
+  } 
+  
   public static int qtdLinhasCachorro(){
     FileStream  leituraCachorro= new FileStream("Cachorro.text",FileMode.Open,FileAccess.Read);
 
@@ -68,23 +106,4 @@ class Cachorro{
 
     return vetorCa; 
   }
-  
-  public string getNome(){
-    return nome;
-  }
-
-  public  string getRaça(){
-    return raça;
-  }
-
-  public  string getSexo(){
-    return sexo;
-  }
-  public  string getCor(){
-    return cor;
-  }
-
-  public  string getPorte(){
-    return porte;
-  }
-}
+}  
