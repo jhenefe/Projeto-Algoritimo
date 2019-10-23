@@ -1,141 +1,87 @@
 using System;
+using System;
 using System.IO;
 using System.Text;
+
 class MainClass {
-  
+
   public static void Main (string[] args) {
-
-    string  infobasic= string.Empty;
-    string  infoperfil= string.Empty;
-    string saidainfobasic = string.Empty;
-    int cont=0,c=0,linha=0,posi=0;
-    int numerovoluntario=0;
-    int  identiusuario=0;
-    int  usuariocadastro=0;
+    int identiusuario=0,usuariocadastro=0,numerovoluntario=0;
     Console.Clear();
-
-    Console.WriteLine("Digite 1 para voluntario ou 2 para dono de um cachorro.");
-
+    Console.WriteLine("Digite 1 para voluntario ou 2 para Dono de um cachorro.");
     identiusuario=int.Parse(Console.ReadLine());
     
-   //Acesso arquivo
-      FileStream  leiturarqvoluntario= new FileStream("Voluntario.text",FileMode.Open,FileAccess.Read);
-          
-      //Lendo informaçoes salvas no arquivo
-      StreamReader lerinfobasic =new StreamReader(leiturarqvoluntario,Encoding.UTF8);
     
-
     //saber se usuario é cadastrado ou não
-    if(identiusuario == 1){
-      
+    if(identiusuario == 1){    
       Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-      usuariocadastro=int.Parse(Console.ReadLine());
-
+      usuariocadastro = int.Parse(Console.ReadLine());
+      
       if(usuariocadastro == 1){
         Console.WriteLine("Informe seu número de voluntario:");
         numerovoluntario=int.Parse(Console.ReadLine());
-        
-
-        
-
+        Voluntario [] posiçao = Voluntario.retornaVetorVoluntario();
+        Voluntario voluntarioCadastrado = posiçao[numerovoluntario-1];
+        Console.WriteLine("Bem vindo(a) {0} !",voluntarioCadastrado.getNome());
+         
       }else{
-        if(usuariocadastro == 2){      
-          
-
-          while (!lerinfobasic.EndOfStream){
-            lerinfobasic.ReadLine();
-            cont++;
-          
-          }
-
-          lerinfobasic.Close();
-          leiturarqvoluntario.Close();
-
-
-          //Acesso para escrever no arquivo 
-          FileStream arqvoluntarios = new FileStream("Voluntario.text",FileMode.Append,FileAccess.Write);
-          
-          //pegando informaçoes do usuario 
-          StreamWriter informaçoesbasicas= new StreamWriter(arqvoluntarios, Encoding.UTF7);
-          if(cont == 1 ){
-            cont=1;
-            numerovoluntario=cont;
-            informaçoesbasicas.WriteLine(numerovoluntario);
-            
-          }else{
-            if(cont==2){
-              cont=2;
-              numerovoluntario=cont;
-              informaçoesbasicas.WriteLine(numerovoluntario);
-
-            }else{
-              while(cont!=0){
-                cont= (cont-2);
-                c++;
-
-              }
-              numerovoluntario=c+1;
-              informaçoesbasicas.WriteLine(numerovoluntario);
-            }
-
-          }
-        
-          //Pegando informaçoes usuario
-          Console.WriteLine("Voluntario numero:{0}",numerovoluntario);
-        
-          //Escrevendo no arquivo 
-          Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome/Idade/CPF/Telefone/disponibilidade dia hora/Perfil");
-        
-          infobasic = Console.ReadLine();
-          informaçoesbasicas.WriteLine(infobasic);
-        
-
-          //Fechando acesso de escrever no arquivo 
-          informaçoesbasicas.Close();
-          arqvoluntarios.Close();
-
+        if(usuariocadastro == 2){
+          Console.WriteLine("Voluntario numero:{0}",(Voluntario.qtdLinhas()+1));
+          Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome,Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
+          string dados= Console.ReadLine();
+          Voluntario.cadastrarUsuario(dados);
 
         }else{
           Console.WriteLine("Opção invalida.Por favor reinicie o programa.");
         }
 
       }
-     
-      string [] vetorarquivo = new string[50];
-          
-      while(!lerinfobasic.EndOfStream){
-            
-        vetorarquivo[linha]= lerinfobasic.ReadLine();
+      Console.WriteLine("Se deseja procurar seu companheiro agora digite sim.Se deseja finalizar o programa digite sair ");
+      string resposta = Console.ReadLine();
+      if(resposta=="sim"){
        
-        linha++;
-      }
-      lerinfobasic.Close();
-      leiturarqvoluntario.Close();
-
-      linha=0;
-      while(linha<50){
-        if( numerovoluntario == 1){
-        infobasic = vetorarquivo[1];
-         Console.Write(infobasic);
-
-       }else{
-         infobasic = vetorarquivo[numerovoluntario+1];
-          Console.Write(infobasic);
-       }
-       linha ++;
+      }else{
+        if(resposta== "sair")
+        Console.WriteLine("Obrigado por utilizar nosso programa!");
       }
     
-    
 
+
+    }else{
+      if(identiusuario == 2){
+        Console.WriteLine("Digite 1 cachorro cadastrado  ou 2 para cadastrar: ");
+        int usuarioCachorro = int.Parse(Console.ReadLine());
+        
+        //Cachorro já cadastrado:>>
+        if(usuarioCachorro == 1){
+          Console.WriteLine("Informe seu número de cadastro:");
+          int numerocadastrocachorro = int.Parse(Console.ReadLine());
+          Cachorro[] posiçao =Cachorro.retornaVetorCachorro();
+          Cachorro cachorroCadastrado = posiçao[usuarioCachorro-1];
+          Console.WriteLine("Bem vindo dono(a) da pet {0}",cachorroCadastrado.getNome());
+
+        }else{
+          if(usuarioCachorro == 2){
+            int numerocachorro=Cachorro.qtdLinhasCachorro();
+            Console.WriteLine("Cachorro número: {0}",numerocachorro);
+            //Escrevendo no arquivo 
+            Console.WriteLine("Por favor preencha as informações a seguir conforme solicitado: Nome / Raça / Sexo / Cor / Porte / Horário disponível /:");
+            string dadosCachorro= Console.ReadLine();
+            Cachorro.cadastrarCachorro(dadosCachorro);
+          }
+
+        }
+      }  
+    
+      
 
     }
 
-    
-    //Parte cachorro .
-
-
-
-
-
   }
-}
+  
+ 
+
+  
+
+
+} 
