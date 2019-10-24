@@ -10,6 +10,7 @@ class Cachorro{
   private string diaCachorro;
   private string turnoCachorro;
   private string bairroCachorro;
+ 
   public Cachorro(string cadastroCachorro){
     string[] linhas = cadastroCachorro.Split('/');
     nome = linhas[0];
@@ -84,6 +85,16 @@ class Cachorro{
     informaçoesCachorro.Close();
     arqCachorro.Close();      
   }
+
+  /*public static void cadastrarCachorro( string dadosCachorro){
+  
+    FileStream arqCachorro= new FileStream("Cachorro.text",FileMode.Append,FileAccess.Write);
+    StreamWriter informaçoesCachorro= new StreamWriter(arqCachorro, Encoding.UTF7);    
+    string infobasicas = dadosCachorro;
+    informaçoesCachorro.WriteLine(infobasicas);
+    informaçoesCachorro.Close();
+    arqCachorro.Close();      
+  }*/
 
    public static Cachorro [] retornaVetorCachorro(){
     FileStream  leituraCachorro= new FileStream("Cachorro.text",FileMode.Open,FileAccess.Read);
