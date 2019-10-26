@@ -37,8 +37,7 @@ class MainClass {
             while(usuarioCadastrado != 1 && usuarioCadastrado != 2){
               Console.Clear();
               Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-              usuarioCadastr
-              ado = int.Parse(Console.ReadLine());
+              usuarioCadastrado = int.Parse(Console.ReadLine());
             }
           break;
           case 2:
@@ -82,19 +81,24 @@ class MainClass {
             
           }else{
             Console.WriteLine("Voluntario numero:{0}",(Voluntario.qtdLinhas()+1));
+            numeroVoluntario = ( Voluntario.qtdLinhas()+1);
             Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome,Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
             string dados = Console.ReadLine();
             Voluntario.cadastrarUsuario(dados);
-            Console.Clear();
+           
 
           }
-          
+         
           Console.Clear();
           Console.WriteLine("Se deseja procurar seu companheiro agora digite 1 .Se deseja finalizar o programa digite 0 para sair ");
           int resposta = int.Parse(Console.ReadLine());
           voluntario = Voluntario.retornaVoluntario(numeroVoluntario,Voluntario.retornaVetorVoluntario());
+          
           if(resposta==1){
+           
             Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario, Cachorro.retornaVetorCachorro());
+            
+            Console.Clear();
             Console.WriteLine("Informações do(s) cachorro(s) compatível(s)");
             Cachorro cachorroCadastrado;
             for(int cont = 0;vetorCachorroCompativel[cont] != null;cont++){
@@ -116,21 +120,27 @@ class MainClass {
               cachorroCadastrado = vetorCachorroCompativel[cachorroEscolhido-1];
               
               Match verificarCachorroAgenda = new Match(voluntario, cachorroCadastrado);
-              Agenda agenda= new Agenda(verificarCachorroAgenda); 
-              Cachorro cachorroAgenda= agenda.getMatchVoluntarioCachorro().getCachorro();
+              Agenda agenda = new Agenda(verificarCachorroAgenda); 
+              Cachorro cachorroAgenda = agenda.getMatchVoluntarioCachorro().getCachorro();
               
               string[] vetorAgenda = Agenda.retornaVetorAgenda(); 
               cachorroLiberado= Agenda.verificaAgendaCachorro( vetorAgenda,cachorroAgenda);
+              Console.WriteLine(cachorroLiberado);
               if(cachorroLiberado == 1){
                 Console.WriteLine("-------------------------------------------------------");
                 Console.WriteLine("--------         Deuuuuuu  Matchh              --------");
                 Console.WriteLine("-------------------------------------------------------");
-                Console.Clear();
                 Console.WriteLine("Vamos agendar?");
                 Console.WriteLine("Digite 1 para sim");
-                Console.WriteLine("Digite  para finalizar sair");
-                finalizarAgendamento=int.Parse(Console.ReadLine());
-
+                Console.WriteLine("Digite 0 para finalizar sair");
+                int agendamento = int.Parse(Console.ReadLine());
+                if (agendamento == 1){
+                  Agenda.agendamento(voluntario,cachorroAgenda);
+                  Console.WriteLine("Agendamento realizado!");
+                  informaçõesMatchVoluntario(cachorroAgenda);
+                  finalizarAgendamento = 0;
+                }
+                Console.Clear();
               }else{
                 Console.WriteLine("Cachorro já agendado.");
                 Console.WriteLine("Digite 1 para  escolher outro cacchorro digite  0 para finalizar");
@@ -174,5 +184,14 @@ class MainClass {
       }
     }
   }
-  
+ public static void informaçõesMatchVoluntario(Cachorro cachorroMatch){
+    Console.WriteLine(" Informações Cachorro:");
+    Console.WriteLine(" Nome: {0}",cachorroMatch.getNome());
+    Console.WriteLine(" Raça: {0}",cachorroMatch.getRaça());
+    Console.WriteLine(" Dia: {0}",cachorroMatch.getDiaCachorro());
+    Console.WriteLine(" Turno: {0}",cachorroMatch.getTurnoCachorro());
+    Console.WriteLine(" Numero de telefone do Dono: {0}",cachorroMatch.getTelefoneDono());
+    
+  }
+
 }

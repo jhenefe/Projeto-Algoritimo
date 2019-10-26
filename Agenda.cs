@@ -34,20 +34,18 @@ class Agenda{
     string nomeCachorroVerificar=cachorroVerificar.getNome();
     
     int retornaDisponibilidadeCachorro = 1;
-    for(int cont = 0;cont < 3; cont++){
-
-          
+    int cont = 0;
+    while(arquivoAgenda[cont] != null){
 
       string posiçao  =  arquivoAgenda[cont];
       string[]  vetorAgenda = posiçao.Split(',');
-      
-      string volunatrioAgendado = vetorAgenda[0];
       string cachorroAgendado = vetorAgenda[1];
+      Console.WriteLine(cachorroAgendado);
       if(nomeCachorroVerificar == cachorroAgendado){
        
         retornaDisponibilidadeCachorro = 0;
       }
-      return retornaDisponibilidadeCachorro;
+     cont++;
     }
    
     return retornaDisponibilidadeCachorro;

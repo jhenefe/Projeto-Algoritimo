@@ -10,7 +10,7 @@ class Cachorro{
   private string diaCachorro;
   private string turnoCachorro;
   private string bairroCachorro;
- 
+  private string telefoneDono;
   public Cachorro(string cadastroCachorro){
     string[] linhas = cadastroCachorro.Split('/');
     nome = linhas[0];
@@ -20,6 +20,7 @@ class Cachorro{
     porte = linhas[4];
     diaturno =linhas[5];
     bairroCachorro=linhas[6];
+    telefoneDono=linhas[7];
     string []vetordiaturno= diaturno.Split('-');
     diaCachorro=vetordiaturno[0];
     turnoCachorro=vetordiaturno[1];
@@ -55,7 +56,9 @@ class Cachorro{
   public string getBairroCachorro(){
     return bairroCachorro;
   } 
-  
+   public string getTelefoneDono(){
+    return telefoneDono;
+  } 
   public static int qtdLinhasCachorro(){
     FileStream  leituraCachorro= new FileStream("Cachorro.text",FileMode.Open,FileAccess.Read);
 
