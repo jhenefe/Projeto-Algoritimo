@@ -75,7 +75,6 @@ class Cachorro{
     return cont;
   }
    
-   
   public static void cadastrarCachorro( string dadosCachorro){
   
     FileStream arqCachorro= new FileStream("Cachorro.text",FileMode.Append,FileAccess.Write);
@@ -86,17 +85,7 @@ class Cachorro{
     arqCachorro.Close();      
   }
 
-  /*public static void cadastrarCachorro( string dadosCachorro){
-  
-    FileStream arqCachorro= new FileStream("Cachorro.text",FileMode.Append,FileAccess.Write);
-    StreamWriter informaçoesCachorro= new StreamWriter(arqCachorro, Encoding.UTF7);    
-    string infobasicas = dadosCachorro;
-    informaçoesCachorro.WriteLine(infobasicas);
-    informaçoesCachorro.Close();
-    arqCachorro.Close();      
-  }*/
-
-   public static Cachorro [] retornaVetorCachorro(){
+  public static Cachorro [] retornaVetorCachorro(){
     FileStream  leituraCachorro= new FileStream("Cachorro.text",FileMode.Open,FileAccess.Read);
 
     //Lendo informaçoes salvas no arquivo
@@ -116,5 +105,11 @@ class Cachorro{
     leituraCachorro.Close();
 
     return vetorCa; 
+  }
+  public static Cachorro retornaCachorro(int numeroCachorro,Cachorro[] retorna){
+    int cachorroId=numeroCachorro;
+    Cachorro [] posiçao = retorna;
+    Cachorro cachorro= posiçao[cachorroId-1];
+    return cachorro;
   }
 }  

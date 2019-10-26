@@ -85,7 +85,18 @@ class Voluntario{
 
     return cont;
   }
-   
+  public static int  verificaVoluntarioCadastrado(int numeroCadastroVoluntario,Voluntario[] vetorVoluntario){
+    int confirmaçãoVoluntario;
+    if(vetorVoluntario[numeroCadastroVoluntario-1] != null){
+      confirmaçãoVoluntario = 1;
+
+    }else{
+      confirmaçãoVoluntario = 0;
+    }
+     
+    return confirmaçãoVoluntario;
+  } 
+  
   public static void cadastrarUsuario( string dados){
   
     FileStream arqvoluntarios = new FileStream("Voluntario.text",FileMode.Append,FileAccess.Write);
@@ -115,7 +126,12 @@ class Voluntario{
 
     return vetorVo; 
   }
-
+  public static Voluntario retornaVoluntario(int numeroVoluntario,Voluntario[] retorna){
+    int numerousuario=numeroVoluntario;
+    Voluntario [] posiçao = retorna;
+    Voluntario voluntarioObjeto= posiçao[numerousuario-1];
+    return voluntarioObjeto;
+  }
  
 
 }

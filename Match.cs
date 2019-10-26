@@ -1,52 +1,58 @@
-class Match{
-  
-  private Voluntario[] vetorVoluntario = new Voluntario[1000];
+using System.ComponentModel;
+using System;
+using System.IO;
+using System.Text;
+class Match{ 
+  private Voluntario voluntario;
+  private Cachorro cachorro;
   private Cachorro[] vetorCachorro = new Cachorro[1000];
-
- 
-
-  public Match (Voluntario[] voluntariocomparar, Cachorro[] cachorrocomparar){    
-    vetorVoluntario = voluntariocomparar;
+   
+  public Match (Voluntario voluntarioComparar, Cachorro[] cachorrocomparar){    
+    voluntario = voluntarioComparar;
     vetorCachorro = cachorrocomparar;
 
+  } 
+  public Match (Voluntario voluntario, Cachorro cachorroEscolhido){    
+    voluntario = voluntario;
+    cachorro = cachorroEscolhido;
   }  
+  public  Cachorro  getCachorro(){
+   return cachorro;
+  }
 
-  public  Voluntario[] getVetorVoluntario(){
-   return vetorVoluntario;
+  public  Voluntario  getVoluntario(){
+   return voluntario;
   }
 
   public  Cachorro[] getVetorCachorro(){
    return vetorCachorro;
   }
-  public static  string [] compatibilidade (int numeroVoluntario,Voluntario voluntario ,Cachorro[] vetorCachorro ){
-    int identificaVoluntario= numeroVoluntario;
-    Voluntario voluntaSelecionado=voluntario;
-    Cachorro[] vetorC = vetorCachorro;
-    string [] voluntarioCompCachorro =new string[1000];
-    int c=0;
+ 
+  
+  public static Cachorro [] verificaCachorroCompatibilidade (Voluntario voluntario,Cachorro[] vetorCachorro){
+    string diaVoluntario = voluntario.getDia();
+    string turnoVoluntario = voluntario.getTurno();
+    string bairroVoluntario= voluntario.getBairro();
+    Cachorro[] cachorroCompativel = new Cachorro[1000];
     
-    string diaV = voluntaSelecionado.getDia();
-    string turnoV = voluntaSelecionado.getTurno();
-    string bairroV = voluntaSelecionado.getBairro();
-    
+    int contador=0;
     for(int i = 0; i<1000; i++){
-      Cachorro objetoC = vetorC[i];
-      string diaC = objetoC.getDiaCachorro();
-      string turnoC = objetoC.getTurnoCachorro();
-      string bairroC = objetoC.getBairroCachorro();
+      if(vetorCachorro[i] != null){
+       Cachorro objetoCachorro = vetorCachorro[i];
+        string diaCachorro = objetoCachorro.getDiaCachorro();
+        string turnoCachorro = objetoCachorro.getTurnoCachorro();
+        string bairroCachorro = objetoCachorro.getBairroCachorro();
       
-      if(bairroV ==bairroC){
-        if(diaV ==diaC){
-          if(turnoV == turnoC){
-            voluntarioCompCachorro[c]=("o");
-            c++;
-          }
+    
+        if(bairroVoluntario == bairroCachorro && diaVoluntario == diaCachorro && turnoVoluntario == turnoCachorro){    
+          cachorroCompativel[contador] = objetoCachorro;
+          contador++;
         }
+      }else{
+        i = 1000;
       }
-  
     } 
-    return voluntarioCompCachorro;
-  }
   
-
+   return cachorroCompativel;
+  }
 }
