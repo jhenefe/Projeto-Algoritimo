@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 class Cachorro{  
@@ -77,9 +78,29 @@ class Cachorro{
 
     return cont;
   }
-   
-  public static void cadastrarCachorro( string dadosCachorro){
+  public static int  verificaCachorroCadastrado(int numeroCadastroCachorrro,Cachorro[] vetorCachorro){
+    int confirmaCachorro = 1;
+    while(confirmaCachorro != 0){
+      if(vetorCachorro[numeroCadastroCachorrro - 1] != null){
+        Cachorro cachorro = retornaCachorro(numeroCadastroCachorrro,retornaVetorCachorro());
+        Console.WriteLine("Bem vindo dono(a) do(a) pet {0}",cachorro.getNome());
+        confirmaCachorro = 0;
+      }else{
+        Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
+        confirmaCachorro = int.Parse( Console.ReadLine());
+        
+      }
+    }
   
+    return numeroCadastroCachorrro;
+  } 
+   
+  
+  public static void cadastrarCachorro( int numeroLinhaArquiCachorro){
+    Console.WriteLine("Cachorro número: {0}", (numeroLinhaArquiCachorro+1));
+    Console.WriteLine("Por favor preencha as informações a seguir conforme solicitado: Nome / Raça / Sexo / Cor / Porte / Horário disponível/Telefone do Responsável pelo pet");
+    string dadosCachorro = Console.ReadLine();
+
     FileStream arqCachorro= new FileStream("Cachorro.text",FileMode.Append,FileAccess.Write);
     StreamWriter informaçoesCachorro= new StreamWriter(arqCachorro, Encoding.UTF7);    
     string infobasicas = dadosCachorro;
@@ -115,4 +136,14 @@ class Cachorro{
     Cachorro cachorro= posiçao[cachorroId-1];
     return cachorro;
   }
+  public static void informaçõesMatchCachorro(Cachorro cachorroMatch){
+    Console.WriteLine(" Informações Cachorro:");
+    Console.WriteLine(" Nome: {0}",cachorroMatch.getNome());
+    Console.WriteLine(" Raça: {0}",cachorroMatch.getRaça());
+    Console.WriteLine(" Dia: {0}",cachorroMatch.getDiaCachorro());
+    Console.WriteLine(" Turno: {0}",cachorroMatch.getTurnoCachorro());
+    Console.WriteLine(" Numero de telefone do Dono: {0}",cachorroMatch.getTelefoneDono());
+    
+  }
+
 }  

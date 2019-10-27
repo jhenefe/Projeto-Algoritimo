@@ -5,193 +5,173 @@ using System.Text;
 class MainClass {
 
   public static void Main (string[] args) { 
-      Console.Clear();
-      int sair = 0;
+    Console.Clear();
+    int sair = 0;
+     bool verificaResposta;
     while(sair == 0 ){
       Voluntario voluntario;
       int entradaInicialUsuario= 0;
-      int usuarioCadastrado = 0;
-      int usuarioCachorro = 0;
+      int usuarioVoluntario= 0;
+      int usuarioCachorro= 0;
+      int numeroCachorro = 0;
       int numeroVoluntario = 0;
       int numerousuario = 0;
-      int numerocadastrocachorro = 0;
+      int numeroCadastroCachorro = 0;
+      string consultaString = null;
+      int consulta = 0;
       //Voluntario voluntarioCadastrado = new Voluntario();
     
       Console.WriteLine("## Digite 1 para voluntario ##");
       Console.WriteLine("## Digite 2 para Dono de um cachorro##"); 
+      Console.WriteLine("## Digite 0 para finalizar Match Dog"); 
     
       string entrada = Console.ReadLine();
-      char primeiroCaracter = entrada[0];
-      int codigoAscii = Convert.ToInt32(primeiroCaracter );
+      verificaResposta = digitosCertos(entrada) ;
       //Tratar a entrada inicial
-      if(codigoAscii < 48 || codigoAscii > 57 || entrada.Length > 1){
+      if(verificaResposta== false ){
         Console.WriteLine("Opção inválida");
       }else{
+       
         entradaInicialUsuario = int.Parse(entrada);
 
-        switch (entradaInicialUsuario)
-        {
+        switch (entradaInicialUsuario){
           case 1:
             Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-            usuarioCadastrado = int.Parse(Console.ReadLine());
-            while(usuarioCadastrado != 1 && usuarioCadastrado != 2){
+            usuarioVoluntario = int.Parse(Console.ReadLine());
+            while(usuarioVoluntario!= 1 && usuarioVoluntario != 2){
               Console.Clear();
               Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-              usuarioCadastrado = int.Parse(Console.ReadLine());
+              usuarioVoluntario = int.Parse(Console.ReadLine());
             }
+            //CONFIRMAR CADASTRO OU CADASTRAR USUÁRIO.
+            switch(usuarioVoluntario){
+              //VOLUNTARIO CADASTRADO
+              case 1:
+                Console.WriteLine("Informe seu número de voluntario:");
+                numeroVoluntario=int.Parse(Console.ReadLine());
+                //CONFIRMAR CADASTRADO VOLUNTARIO
+                int numeroVoluntarioConfirmado = Voluntario.verificaCadastradoVoluntario(numeroVoluntario,Voluntario.retornaVetorVoluntario());
+                voluntario = Voluntario.retornaVoluntario(numeroVoluntarioConfirmado,Voluntario.retornaVetorVoluntario());  
+                if(numeroVoluntarioConfirmado == 0){
+                  sair = 0;
+                }else{
+                  //MATCH VOLUNTARIO/CACHORRO.
+                  Console.WriteLine("Se deseja procurar seu companheiro agora digite 1. ");
+                  Console.WriteLine(" Se deseja consultar seu você tem agendamentodigite 2");
+                  Console.WriteLine(" Se deseja finalizar o programa digite 0 para sair");
+                  int resposta = int.Parse(Console.ReadLine());
+                 
+                  if(resposta == 1){
+                    Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
+                    Match voluntariomatch = new Match(voluntario);
+                    Match.match(vetorCachorroCompativel,voluntario);
+                  }else{
+                    if(resposta == 2){
+                      Agenda.verificaAgendaVoluntario(Agenda.retornaVetorAgenda(),voluntario);
+                    }else{
+                      sair = 1;
+                    }
+                   
+                  }
+                  
+                
+                }
+              break;
+              //VOLUNTARIO CADASTRAR
+              case 2:
+                Voluntario.cadastrarUsuario(Voluntario.qtdLinhas());
+                voluntario = Voluntario.retornaVoluntario((Voluntario.qtdLinhas()+1),Voluntario.retornaVetorVoluntario());
+                Cachorro [] vetorSeleçaoCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario, Cachorro.retornaVetorCachorro());
+                Match.match(vetorSeleçaoCachorroCompativel,voluntario);
+              break;
+              
+              default:
+                Console.WriteLine("Opção inválida");
+              break;
+
+            } 
           break;
+          //CACHORRO
           case 2:
             Console.WriteLine("Digite 1 cachorro cadastrado  ou 2 para cadastrar: ");
             usuarioCachorro = int.Parse(Console.ReadLine());
-            while(usuarioCachorro  != 1 && usuarioCachorro  != 2){
+            while(usuarioCachorro  != 1 && usuarioCachorro  != 2 ){
               Console.Clear();
               Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
               usuarioCachorro = int.Parse(Console.ReadLine());
+
             }
+            switch(usuarioCachorro){
+              //CACHORRO CADASTRADO
+              case 1:
+                Console.Clear();
+                Console.WriteLine("Informe o número de cadastro do seu cachorro:");
+                numeroCachorro=int.Parse(Console.ReadLine());
+                //CONFIRMAR CADASTRADO CACHORRO
+                numeroCadastroCachorro = Cachorro.verificaCachorroCadastrado(numeroCachorro ,Cachorro.retornaVetorCachorro());
+                Console.WriteLine(numeroCadastroCachorro );
+                Cachorro cachorro = Cachorro.retornaCachorro(numeroCadastroCachorro,Cachorro.retornaVetorCachorro());  
+                Console.WriteLine(cachorro);
+                if(numeroCadastroCachorro == 0){
+                  sair = 1;
+                }else{
+                  verificaResposta = false;
+                  while(verificaResposta == false){
+                    Console.WriteLine(" Se deseja consultar seu você tem agendamento digite 1 ou 0 para finalizar programa");
+                    consultaString = Console.ReadLine();
+                    consulta = int.Parse(consultaString);
+                    verificaResposta = digitosCertos(consultaString);
+                    if(verificaResposta == true){
+                      if( consulta == 1){
+                      Agenda.verificaAgendaCachorro(Agenda.retornaVetorAgenda(),cachorro,consulta);
+                      }else{
+                        sair = 1;
+                      }
+                    }
+                  }
+                  
+                  
+                }
+
+              break;
+              //CADASTRAR
+              case 2:
+                Cachorro.cadastrarCachorro(Cachorro.qtdLinhasCachorro());
+                
+              break;
+              
+              default:
+              Console.WriteLine("Opção inválida");
+              break;
+
+            } 
+
           break;
-          default:
+          case 3:
+               sair = 1;
+              break;default:
             Console.WriteLine("Opção inv");
           break;
+        
         }
-          
-        if(entradaInicialUsuario == 1){
-          //PARTE DE VOLUNTARIO
-            
-          if(usuarioCadastrado == 1){
-            Console.WriteLine("Informe seu número de voluntario:");
-            numeroVoluntario=int.Parse(Console.ReadLine());
-            int confirmaçãoVoluntario = Voluntario.verificaVoluntarioCadastrado(numeroVoluntario,Voluntario.retornaVetorVoluntario());
-            if(confirmaçãoVoluntario == 1){
-              voluntario = Voluntario.retornaVoluntario(numeroVoluntario,Voluntario.retornaVetorVoluntario());
-              Console.WriteLine("Bem vindo(a) {0} !",voluntario.getNome());
-            }else{
-              while(confirmaçãoVoluntario != 0){
-                Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
-                numeroVoluntario = int.Parse( Console.ReadLine());
-                if(numeroVoluntario != 0){
-                  confirmaçãoVoluntario = Voluntario.verificaVoluntarioCadastrado(numeroVoluntario,Voluntario.retornaVetorVoluntario());
-                }else{
-                  confirmaçãoVoluntario = 0;
-                  sair = 0;
-                }
-                
-              }
-            
-            }
-            
-          }else{
-            Console.WriteLine("Voluntario numero:{0}",(Voluntario.qtdLinhas()+1));
-            numeroVoluntario = ( Voluntario.qtdLinhas()+1);
-            Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome,Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
-            string dados = Console.ReadLine();
-            Voluntario.cadastrarUsuario(dados);
-           
-
-          }
-         
-          Console.Clear();
-          Console.WriteLine("Se deseja procurar seu companheiro agora digite 1 .Se deseja finalizar o programa digite 0 para sair ");
-          int resposta = int.Parse(Console.ReadLine());
-          voluntario = Voluntario.retornaVoluntario(numeroVoluntario,Voluntario.retornaVetorVoluntario());
-          
-          if(resposta==1){
-           
-            Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario, Cachorro.retornaVetorCachorro());
-            
-            Console.Clear();
-            Console.WriteLine("Informações do(s) cachorro(s) compatível(s)");
-            Cachorro cachorroCadastrado;
-            for(int cont = 0;vetorCachorroCompativel[cont] != null;cont++){
-              Console.WriteLine(cont+1);
-              cachorroCadastrado = vetorCachorroCompativel[cont];
-              Console.WriteLine("Nome:{0}",cachorroCadastrado.getNome());
-              Console.WriteLine("Raça:{0}",cachorroCadastrado.getRaça());
-              Console.WriteLine("Sexo:{0}",cachorroCadastrado.getSexo());
-              Console.WriteLine("Cor:{0}",cachorroCadastrado.getCor());
-              Console.WriteLine("   ");
-            }
-           
-            int finalizarAgendamento = 1;
-            int cachorroLiberado = 0;
-            while( finalizarAgendamento == 1){
-              int agendar=0; 
-              Console.WriteLine("Informe número do cachorro escolhido");
-              int cachorroEscolhido = int.Parse(Console.ReadLine());
-              cachorroCadastrado = vetorCachorroCompativel[cachorroEscolhido-1];
-              
-              Match verificarCachorroAgenda = new Match(voluntario, cachorroCadastrado);
-              Agenda agenda = new Agenda(verificarCachorroAgenda); 
-              Cachorro cachorroAgenda = agenda.getMatchVoluntarioCachorro().getCachorro();
-              
-              string[] vetorAgenda = Agenda.retornaVetorAgenda(); 
-              cachorroLiberado= Agenda.verificaAgendaCachorro( vetorAgenda,cachorroAgenda);
-              Console.WriteLine(cachorroLiberado);
-              if(cachorroLiberado == 1){
-                Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine("--------         Deuuuuuu  Matchh              --------");
-                Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine("Vamos agendar?");
-                Console.WriteLine("Digite 1 para sim");
-                Console.WriteLine("Digite 0 para finalizar sair");
-                int agendamento = int.Parse(Console.ReadLine());
-                if (agendamento == 1){
-                  Agenda.agendamento(voluntario,cachorroAgenda);
-                  Console.WriteLine("Agendamento realizado!");
-                  informaçõesMatchVoluntario(cachorroAgenda);
-                  finalizarAgendamento = 0;
-                }
-                Console.Clear();
-              }else{
-                Console.WriteLine("Cachorro já agendado.");
-                Console.WriteLine("Digite 1 para  escolher outro cacchorro digite  0 para finalizar");
-                finalizarAgendamento=int.Parse (Console.ReadLine());
-              }
-            }
-            
-            
-            
-            
-            
-             
-            
-            
-          
-
-          }else{
-            //PARTE DO CACHORRO
-            //Cachorro já cadastrado:>>
-            if(usuarioCachorro == 1){
-              Console.WriteLine("Informe seu número de cadastro:");
-              numerocadastrocachorro = int.Parse(Console.ReadLine());
-              Cachorro[] posiçao = Cachorro.retornaVetorCachorro();
-              Cachorro cachorroCadastrado = posiçao[usuarioCachorro-1];
-              Console.WriteLine("Bem vindo dono(a) da pet {0}",cachorroCadastrado.getNome());
-
-            }else{
-              numerocadastrocachorro=Cachorro.qtdLinhasCachorro();
-              numerousuario=numerocadastrocachorro;
-              Console.WriteLine("Cachorro número: {0}", numerocadastrocachorro);
-              //Escrevendo no arquivo 
-              Console.WriteLine("Por favor preencha as informações a seguir conforme solicitado: Nome / Raça / Sexo / Cor / Porte / Horário disponível /:");
-              string dadosCachorro = Console.ReadLine();
-              Cachorro.cadastrarCachorro(dadosCachorro);
-              Console.Clear();
-              
-            }
-          }
-
-        }
+      
       }
     }
+   
+    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
+    Console.Clear();
   }
- public static void informaçõesMatchVoluntario(Cachorro cachorroMatch){
-    Console.WriteLine(" Informações Cachorro:");
-    Console.WriteLine(" Nome: {0}",cachorroMatch.getNome());
-    Console.WriteLine(" Raça: {0}",cachorroMatch.getRaça());
-    Console.WriteLine(" Dia: {0}",cachorroMatch.getDiaCachorro());
-    Console.WriteLine(" Turno: {0}",cachorroMatch.getTurnoCachorro());
-    Console.WriteLine(" Numero de telefone do Dono: {0}",cachorroMatch.getTelefoneDono());
-    
+  //FUNÇAO TRATAR ENTRADA INICIAL 
+  public static bool digitosCertos(string entrada){
+    char primeiroCaracter = entrada[0];
+    int codigoAscii = Convert.ToInt32(primeiroCaracter );
+    //Tratar a entrada inicial
+    if(codigoAscii < 47 || codigoAscii > 52 || entrada.Length > 1){
+      Console.WriteLine("Opção inválida");
+      return false;
+    }
+    return true;  
   }
-
+  
 }
+  

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 
@@ -54,6 +55,9 @@ class Voluntario{
  public string getIdade(){
    return idade;
  }
+ public string getCpf(){
+   return cpf;
+ }
  public string getTelefone(){
    return telefone;
  }
@@ -85,26 +89,35 @@ class Voluntario{
 
     return cont;
   }
-  public static int  verificaVoluntarioCadastrado(int numeroCadastroVoluntario,Voluntario[] vetorVoluntario){
-    int confirmaçãoVoluntario;
-    if(vetorVoluntario[numeroCadastroVoluntario-1] != null){
-      confirmaçãoVoluntario = 1;
-
-    }else{
-      confirmaçãoVoluntario = 0;
+  public static int  verificaCadastradoVoluntario(int numeroCadastroVoluntario,Voluntario[] vetorVoluntario){
+      int confirmaVoluntario = 1;
+      while(confirmaVoluntario != 0){
+      if(vetorVoluntario[numeroCadastroVoluntario-1] != null){
+       Voluntario voluntario =Voluntario.retornaVoluntario(numeroCadastroVoluntario,Voluntario.retornaVetorVoluntario());
+        Console.WriteLine("Bem vindo(a) {0} !",voluntario.getNome());
+        confirmaVoluntario = 0;
+        
+      }else{
+        Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
+        confirmaVoluntario = int.Parse( Console.ReadLine());
+        
+      }
     }
-     
-    return confirmaçãoVoluntario;
+   
+    return numeroCadastroVoluntario;
   } 
   
-  public static void cadastrarUsuario( string dados){
-  
+  public static void cadastrarUsuario( int numeroLinhasArquivoVolunatrio){
+    Console.WriteLine("Voluntario numero:{0}",( numeroLinhasArquivoVolunatrio+1));
+    Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome,Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
+    string dados = Console.ReadLine();
+    
     FileStream arqvoluntarios = new FileStream("Voluntario.text",FileMode.Append,FileAccess.Write);
     StreamWriter informaçoesbasicas= new StreamWriter(arqvoluntarios, Encoding.UTF7);    
     string infobasic = dados;
     informaçoesbasicas.WriteLine(infobasic);
     informaçoesbasicas.Close();
-    arqvoluntarios.Close();      
+    arqvoluntarios.Close();           
   }
   
   public static Voluntario[] retornaVetorVoluntario(){
