@@ -8,7 +8,7 @@ class Agenda{
     AgendaVolunatrioCachorro = verificaAgenda ;
     
   }
-
+ 
   public Match getMatchVoluntarioCachorro(){
     return AgendaVolunatrioCachorro;
   }
@@ -34,23 +34,24 @@ class Agenda{
     
     string nomeCachorroVerificar = cachorroVerificar.getNome();
     string telefoneCachorroVerificar = cachorroVerificar.getTelefoneDono();
-    int retornaDisponibilidadeCachorro = 1;
+    int retornaDisponibilidadeCachorro = 0;
     int cont = 0;
     while(arquivoAgenda[cont] != null){
 
       string posiçao  =  arquivoAgenda[cont];
       string[]  vetorAgenda = posiçao.Split(',');
-      string cachorroAgendado = vetorAgenda[4];
-      string cachorroTelefoneDono= vetorAgenda[5];
+      string cachorroAgendado = vetorAgenda[3];
+      string cachorroTelefoneDono= vetorAgenda[4];
       if(nomeCachorroVerificar == cachorroAgendado){
        if(cachorroTelefoneDono == telefoneCachorroVerificar ){
          if(consulta ==1){
             Console.WriteLine("Informções Agendamento:");
-            Console.WriteLine("Voluntario");
-            Console.WriteLine(vetorAgenda[0]);
-            Console.WriteLine(vetorAgenda[6]);
-            Console.WriteLine("Telefone contato: {0}",vetorAgenda[3]);
-         }
+            Console.WriteLine("Voluntario {0}",vetorAgenda[0]);
+            Console.WriteLine(vetorAgenda[5]);
+            Console.WriteLine("Telefone contato: {0}",vetorAgenda[2]);
+            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5));
+            Console.Clear();
+          }
          
         }
         retornaDisponibilidadeCachorro = 0;
@@ -62,7 +63,7 @@ class Agenda{
   }
   //VERIFICA SE VOLUNTARIO TEM AGENDAMENTO
   public static void verificaAgendaVoluntario(string[] arquivoAgenda,Voluntario voluntarioVerificar){
-    
+    Console.Clear();
     string nomeVoluntarioVerificar = voluntarioVerificar.getNome();
     string cpfVoluntarioVerificar = voluntarioVerificar.getCpf();
     int retornaDisponibilidadeVoluntario = 1;
@@ -73,19 +74,19 @@ class Agenda{
       string[]  vetorAgenda = posiçao.Split(',');
       string voluntarioAgendado = vetorAgenda[0];
       string cpfAgenda= vetorAgenda[1];
-      Console.WriteLine(voluntarioAgendado);
       if(nomeVoluntarioVerificar == voluntarioAgendado){
        if(cpfVoluntarioVerificar == cpfAgenda ){
          Console.WriteLine("Informções Agendamento:");
          Console.WriteLine("Cachorro");
-          Console.WriteLine(vetorAgenda[4]);
-          Console.WriteLine(vetorAgenda[6]);
-          Console.WriteLine("telefone contato Dono: {0}",vetorAgenda[5]);
+          Console.WriteLine(vetorAgenda[3]);
+          Console.WriteLine(vetorAgenda[5]);
+          Console.WriteLine("telefone contato Dono: {0}",vetorAgenda[2]);
         }
       }
       cont++;  
     }
-    
+    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+    Console.Clear();
   }
    
   

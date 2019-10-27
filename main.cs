@@ -57,8 +57,8 @@ class MainClass {
                 }else{
                   //MATCH VOLUNTARIO/CACHORRO.
                   Console.WriteLine("Se deseja procurar seu companheiro agora digite 1. ");
-                  Console.WriteLine(" Se deseja consultar seu você tem agendamentodigite 2");
-                  Console.WriteLine(" Se deseja finalizar o programa digite 0 para sair");
+                  Console.WriteLine("Se deseja consultar seu você tem agendamentodigite 2");
+                  Console.WriteLine("Se deseja finalizar o programa digite 0 para sair");
                   int resposta = int.Parse(Console.ReadLine());
                  
                   if(resposta == 1){
@@ -79,9 +79,10 @@ class MainClass {
               break;
               //VOLUNTARIO CADASTRAR
               case 2:
-                Voluntario.cadastrarUsuario(Voluntario.qtdLinhas());
-                voluntario = Voluntario.retornaVoluntario((Voluntario.qtdLinhas()+1),Voluntario.retornaVetorVoluntario());
-                Cachorro [] vetorSeleçaoCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario, Cachorro.retornaVetorCachorro());
+                //Voluntario.cadastrarUsuario(Voluntario.qtdLinhas());
+                Voluntario[] atualizaVetorAgenda = Voluntario.retornaVetorVoluntario();
+                voluntario = Voluntario.retornaVoluntario((Voluntario.qtdLinhas()-1),atualizaVetorAgenda);
+                Cachorro [] vetorSeleçaoCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
                 Match.match(vetorSeleçaoCachorroCompativel,voluntario);
               break;
               
@@ -105,8 +106,13 @@ class MainClass {
               //CACHORRO CADASTRADO
               case 1:
                 Console.Clear();
-                Console.WriteLine("Informe o número de cadastro do seu cachorro:");
-                numeroCachorro=int.Parse(Console.ReadLine());
+                verificaResposta = false;
+                while(verificaResposta == false){
+                  Console.WriteLine("Informe o número de cadastro do seu cachorro:");
+                  consultaString = Console.ReadLine();
+                  numeroCachorro=int.Parse(Console.ReadLine());
+                }
+
                 //CONFIRMAR CADASTRADO CACHORRO
                 numeroCadastroCachorro = Cachorro.verificaCachorroCadastrado(numeroCachorro ,Cachorro.retornaVetorCachorro());
                 Console.WriteLine(numeroCadastroCachorro );
@@ -115,12 +121,13 @@ class MainClass {
                 if(numeroCadastroCachorro == 0){
                   sair = 1;
                 }else{
+                  //CONSULTAR SE TEM AGENDAMENTO
                   verificaResposta = false;
                   while(verificaResposta == false){
                     Console.WriteLine(" Se deseja consultar seu você tem agendamento digite 1 ou 0 para finalizar programa");
                     consultaString = Console.ReadLine();
                     consulta = int.Parse(consultaString);
-                    verificaResposta = digitosCertos(consultaString);
+                    verificaResposta = digitosCertosDuasOpçoes(consultaString);
                     if(verificaResposta == true){
                       if( consulta == 1){
                       Agenda.verificaAgendaCachorro(Agenda.retornaVetorAgenda(),cachorro,consulta);
@@ -129,8 +136,7 @@ class MainClass {
                       }
                     }
                   }
-                  
-                  
+  
                 }
 
               break;
@@ -168,10 +174,21 @@ class MainClass {
     //Tratar a entrada inicial
     if(codigoAscii < 47 || codigoAscii > 52 || entrada.Length > 1){
       Console.WriteLine("Opção inválida");
+      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
       return false;
     }
     return true;  
   }
-  
+  public static bool digitosCertosDuasOpçoes(string entrada){
+    char primeiroCaracter = entrada[0];
+    int codigoAscii = Convert.ToInt32(primeiroCaracter );
+    //Tratar a entrada inicial
+    if(codigoAscii < 47 || codigoAscii > 50 || entrada.Length > 1){
+      Console.WriteLine("Opção inválida");
+      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
+      return false;
+    }
+    return true;  
+  }
 }
   
