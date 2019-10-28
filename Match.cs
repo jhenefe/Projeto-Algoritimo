@@ -4,35 +4,27 @@ using System.Text;
 class Match{ 
   private Voluntario voluntario;
   private Cachorro cachorro;
- 
-   
+  //CONSTRUTOR
   public Match (Voluntario voluntarioComparar){    
     voluntario = voluntarioComparar;
-    
-
   } 
   public Match (Voluntario voluntario, Cachorro cachorroEscolhido){    
     voluntario = voluntario;
     cachorro = cachorroEscolhido;
-    
-   
   }
-
+  //METODOS DE ACESSO
   public  Voluntario  getVoluntario(){
    return voluntario;
   }
    public  Cachorro  getCachorro(){
    return cachorro;
   }
-  
- 
-  
+  //METODO VERIFICA TODOS CACHORROS COMPATIVEIS COM O OBJETO VOLUNTARIO SELECIONADO
   public static Cachorro [] verificaCachorroCompatibilidade (Voluntario voluntario,Cachorro[] vetorCachorro){
     string diaVoluntario = voluntario.getDia();
     string turnoVoluntario = voluntario.getTurno();
     string bairroVoluntario= voluntario.getBairro();
     Cachorro[] cachorroCompativel = new Cachorro[1000];
-    
     int contador=0;
     for(int i = 0; i<1000; i++){
       if(vetorCachorro[i] != null){
@@ -40,8 +32,6 @@ class Match{
         string diaCachorro = objetoCachorro.getDiaCachorro();
         string turnoCachorro = objetoCachorro.getTurnoCachorro();
         string bairroCachorro = objetoCachorro.getBairroCachorro();
-      
-    
         if(bairroVoluntario == bairroCachorro && diaVoluntario == diaCachorro && turnoVoluntario == turnoCachorro){    
           cachorroCompativel[contador] = objetoCachorro;
           contador++;
@@ -50,15 +40,13 @@ class Match{
         i = 1000;
       }
     } 
-  
    return cachorroCompativel;
   }
+  //METODO QUE PRINTA NA TELA TODOS OS CACHORROS COMPATÍVEIS, VERIFICA DISPONIBILIDADE,E CHAMA METODO AGENDAMENTO DA CLASSE AGENDA
   public static void match(Cachorro[] vetorCachorroCompativel,Voluntario voluntario){
-    int verificaSeTemCahorro = 0;
-    
+    int verificaSeTemCahorro = 0; 
     while(vetorCachorroCompativel[verificaSeTemCahorro] != null){
-      verificaSeTemCahorro++;
-      
+      verificaSeTemCahorro++;  
     }
     if(verificaSeTemCahorro != 0){
       Console.WriteLine("Informações do(s) cachorro(s) compatível(s)");
@@ -115,8 +103,7 @@ class Match{
     Console.WriteLine("Infelizmente não há cachorro compativel");
     System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
     }
-    
-  
+
   }
    
 }

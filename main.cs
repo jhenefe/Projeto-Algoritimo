@@ -19,55 +19,43 @@ class MainClass {
       int numeroCadastroCachorro = 0;
       string consultaString = null;
       int consulta = 0;
-      //Voluntario voluntarioCadastrado = new Voluntario();
-    
-      Console.WriteLine("## Digite 1 para voluntário ##");
+      Console.WriteLine("## Digite 1 para voluntario ##");
       Console.WriteLine("## Digite 2 para Dono de um cachorro##"); 
       Console.WriteLine("## Digite 0 para finalizar Match Dog"); 
     
       string entrada = Console.ReadLine();
       verificaResposta = digitosCertos(entrada) ;
       //Tratar a entrada inicial
-      if(verificaResposta== false ){
-        Console.WriteLine("Opção inválida");
-      }
-      else{
-       
+      if(verificaResposta == false ){
+        Console.WriteLine("Opção inválida");  
+      }else{
         entradaInicialUsuario = int.Parse(entrada);
-
         switch (entradaInicialUsuario){
           case 1:
-          verificaResposta = false;
-          while(verificaResposta == false){  
-            Console.WriteLine("Digite 1 para usuário cadastrado ou 2 para se cadastrar.");
-            consultaString = Console.ReadLine();
-            usuarioVoluntario = int.Parse(consultaString);
-            verificaResposta = digitosCertosDuasOpçoes(consultaString);
-            while(usuarioVoluntario!= 1 && usuarioVoluntario != 2){
+            verificaResposta = false;
+            while(verificaResposta == false){
+              Console.WriteLine("Digite 1 usuario cadastrado,2 para cadastrar ou 0 para sair.");
+              consultaString = Console.ReadLine();
+              verificaResposta = digitosCertosDuasOpçoes(consultaString);
               Console.Clear();
-              verificaResposta = false;
-              while(verificaResposta == false){
-                Console.WriteLine("Digite 1 para usuario cadastrado ou 2 para se cadastrar.");
-                consultaString = Console.ReadLine();
-                usuarioVoluntario = int.Parse(consultaString);
-                verificaResposta = digitosCertosDuasOpçoes(consultaString);
-                if(verificaResposta == true){
-                  if( consulta == 1 || consulta == 2){
-                    usuarioVoluntario = int.Parse(consultaString);
-                  }
-                  else{
-                    sair = 1;
-                  }   
-                }
-              }  
             }
-          }  
+            consulta = int.Parse(consultaString);
+            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+            usuarioVoluntario = consulta;
             //CONFIRMAR CADASTRO OU CADASTRAR USUÁRIO.
             switch(usuarioVoluntario){
               //VOLUNTARIO CADASTRADO
               case 1:
-                Console.WriteLine("Informe seu número de voluntário:");
-                numeroVoluntario=int.Parse(Console.ReadLine());
+                verificaResposta = false;
+                while(verificaResposta == false){
+                  Console.WriteLine("Informe seu número de voluntario:");
+                  consultaString = Console.ReadLine();
+                  verificaResposta = digitosCertosNumeroQualquer(consultaString);
+                  System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
+                  Console.Clear();
+                }
+                consulta = int.Parse(consultaString);
+                numeroVoluntario = consulta;
                 //CONFIRMAR CADASTRADO VOLUNTARIO
                 int numeroVoluntarioConfirmado = Voluntario.verificaCadastradoVoluntario(numeroVoluntario,Voluntario.retornaVetorVoluntario());
                 voluntario = Voluntario.retornaVoluntario(numeroVoluntarioConfirmado,Voluntario.retornaVetorVoluntario());  
@@ -77,29 +65,25 @@ class MainClass {
                   //MATCH VOLUNTARIO/CACHORRO.
                   verificaResposta = false;
                   while(verificaResposta == false){
-                    Console.WriteLine("Se deseja procurar seu companheiro digite 1. ");
-                    Console.WriteLine("Se deseja consultar seus agendamentos digite 2");
-                    Console.WriteLine("Se deseja finalizar o programa digite 0");
+                    Console.WriteLine("Se deseja procurar seu companheiro agora digite 1. ");
+                    Console.WriteLine("Se deseja consultar seu você tem agendamentodigite 2");
+                    Console.WriteLine("Se deseja finalizar o programa digite 0 para sair");
                     consultaString = Console.ReadLine();
-                    int resposta = int.Parse(consultaString);
                     verificaResposta = digitosCertosDuasOpçoes(consultaString);
-                  
-                    if(resposta == 1){
-                      Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
-                      Match voluntariomatch = new Match(voluntario);
-                      Match.match(vetorCachorroCompativel,voluntario);
+                    Console.Clear();
                   }
-                    else{
-                      if(resposta == 2){
+                  int resposta = int.Parse(consultaString);
+                  if(resposta == 1){
+                    Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
+                    Match voluntariomatch = new Match(voluntario);
+                    Match.match(vetorCachorroCompativel,voluntario);
+                  }else{
+                    if(resposta == 2){
                       Agenda.verificaAgendaVoluntario(Agenda.retornaVetorAgenda(),voluntario);
-                      }
-                      else{
+                    }else{
                       sair = 1;
-                      }
-                   
                     }
                   }
-                
                 }
               break;
               //VOLUNTARIO CADASTRAR
@@ -109,8 +93,7 @@ class MainClass {
                 voluntario = Voluntario.retornaVoluntario((Voluntario.qtdLinhas()-1),atualizaVetorAgenda);
                 Cachorro [] vetorSeleçaoCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
                 Match.match(vetorSeleçaoCachorroCompativel,voluntario);
-              break;
-              
+              break;             
               default:
                 Console.WriteLine("Opção inválida");
               break;
@@ -121,29 +104,12 @@ class MainClass {
           case 2:
             verificaResposta = false;
             while(verificaResposta == false){
-              Console.WriteLine("Digite 1 para cachorro cadastrado ou 2 para se cadastrar: ");
+              Console.WriteLine("Digite 1 cachorro cadastrado,2 para cadastrar ou 0 para sair: ");
               consultaString = Console.ReadLine();
-              usuarioCachorro = int.Parse(consultaString);
               verificaResposta = digitosCertosDuasOpçoes(consultaString);
-            } 
-            while(usuarioCachorro  != 1 && usuarioCachorro  != 2 ){
               Console.Clear();
-              verificaResposta = false;
-              while(verificaResposta == false){
-                Console.WriteLine("Digite 1 para usuario cadastrado ou 2 para se cadastrar.");
-                consultaString = Console.ReadLine();
-                usuarioCachorro = int.Parse(consultaString);
-                verificaResposta = digitosCertosDuasOpçoes(consultaString);
-                if(verificaResposta == true){
-                  if( consulta == 1 || consulta == 2){
-                    usuarioCachorro = int.Parse(consultaString);
-                  }
-                  else{
-                    sair = 1;
-                  }
-                }      
-              }
-            }  
+            }
+            usuarioCachorro = int.Parse(consultaString);
             switch(usuarioCachorro){
               //CACHORRO CADASTRADO
               case 1:
@@ -154,7 +120,6 @@ class MainClass {
                   consultaString = Console.ReadLine();
                   numeroCachorro=int.Parse(Console.ReadLine());
                 }
-
                 //CONFIRMAR CADASTRADO CACHORRO
                 numeroCadastroCachorro = Cachorro.verificaCachorroCadastrado(numeroCachorro ,Cachorro.retornaVetorCachorro());
                 Console.WriteLine(numeroCadastroCachorro );
@@ -166,7 +131,7 @@ class MainClass {
                   //CONSULTAR SE TEM AGENDAMENTO
                   verificaResposta = false;
                   while(verificaResposta == false){
-                    Console.WriteLine(" Se deseja consultar seus agendamentos digite 1, ou digite 0 para finalizar o programa");
+                    Console.WriteLine(" Se deseja consultar seu você tem agendamento digite 1 ou 0 para finalizar programa");
                     consultaString = Console.ReadLine();
                     consulta = int.Parse(consultaString);
                     verificaResposta = digitosCertosDuasOpçoes(consultaString);
@@ -178,34 +143,29 @@ class MainClass {
                       }
                     }
                   }
-  
                 }
-
               break;
               //CADASTRAR
               case 2:
                 Cachorro.cadastrarCachorro(Cachorro.qtdLinhasCachorro());
                 
               break;
-              
               default:
               Console.WriteLine("Opção inválida");
               break;
-
             } 
 
           break;
           case 3:
-               sair = 1;
-              break;default:
-            Console.WriteLine("Opção inv");
+             sair = 1;
+            Console.WriteLine("Opção invalida");
           break;
-        
+          default:
+            sair = 1;
+          break;
         }
-      
       }
     }
-   
     System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
     Console.Clear();
   }
@@ -213,22 +173,48 @@ class MainClass {
   public static bool digitosCertos(string entrada){
     char primeiroCaracter = entrada[0];
     int codigoAscii = Convert.ToInt32(primeiroCaracter );
-    //Tratar a entrada inicial
-    if(codigoAscii < 47 || codigoAscii > 52 || entrada.Length > 1){
+    if(codigoAscii < 48 || codigoAscii > 50 || entrada.Length > 1){
       Console.WriteLine("Opção inválida");
-      Console.WriteLine("Digite uma opção correta ou 0 para sair");
+      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
       return false;
+      System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
     }
+    
     return true;  
   }
+  //FUNÇAO TRATAR ENTRADA NUMERO 1 E 0
   public static bool digitosCertosDuasOpçoes(string entrada){
     char primeiroCaracter = entrada[0];
     int codigoAscii = Convert.ToInt32(primeiroCaracter );
-    //Tratar a entrada inicial
     if(codigoAscii < 47 || codigoAscii > 50 || entrada.Length > 1){
       Console.WriteLine("Opção inválida");
-      Console.WriteLine("Digite uma opção correta ou 0 para sair");
+      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
       return false;
+      System.Threading.Thread.Sleep(TimeSpan.FromSeconds(2));
+    }
+    return true;  
+  }
+  //FUNÇAO TRATAR ENTRADA NUMERO 0,1,2.
+  public static bool digitosCertosUmDois(string entrada){
+    char primeiroCaracter = entrada[0];
+    int codigoAscii = Convert.ToInt32(primeiroCaracter );
+    if(codigoAscii < 47 || codigoAscii > 51 || entrada.Length > 1){
+      Console.WriteLine("Opção inválida");
+      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
+      return false;
+      System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
+    }
+    return true;  
+  }
+  //FUNÇAO TRATAR ENTRADA NUMERO CADASTRO
+  public static bool digitosCertosNumeroQualquer(string entrada){
+    char primeiroCaracter = entrada[0];
+    int codigoAscii = Convert.ToInt32(primeiroCaracter );
+    if(codigoAscii < 47 || codigoAscii > 57 || entrada.Length > 1){
+      Console.WriteLine("Opção inválida");
+      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
+      return false;
+      System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3));
     }
     return true;  
   }
