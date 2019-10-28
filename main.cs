@@ -21,7 +21,7 @@ class MainClass {
       int consulta = 0;
       //Voluntario voluntarioCadastrado = new Voluntario();
     
-      Console.WriteLine("## Digite 1 para voluntario ##");
+      Console.WriteLine("## Digite 1 para voluntário ##");
       Console.WriteLine("## Digite 2 para Dono de um cachorro##"); 
       Console.WriteLine("## Digite 0 para finalizar Match Dog"); 
     
@@ -30,24 +30,43 @@ class MainClass {
       //Tratar a entrada inicial
       if(verificaResposta== false ){
         Console.WriteLine("Opção inválida");
-      }else{
+      }
+      else{
        
         entradaInicialUsuario = int.Parse(entrada);
 
         switch (entradaInicialUsuario){
           case 1:
-            Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-            usuarioVoluntario = int.Parse(Console.ReadLine());
+          verificaResposta = false;
+          while(verificaResposta == false){  
+            Console.WriteLine("Digite 1 para usuário cadastrado ou 2 para se cadastrar.");
+            consultaString = Console.ReadLine();
+            usuarioVoluntario = int.Parse(consultaString);
+            verificaResposta = digitosCertosDuasOpçoes(consultaString);
             while(usuarioVoluntario!= 1 && usuarioVoluntario != 2){
               Console.Clear();
-              Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-              usuarioVoluntario = int.Parse(Console.ReadLine());
+              verificaResposta = false;
+              while(verificaResposta == false){
+                Console.WriteLine("Digite 1 para usuario cadastrado ou 2 para se cadastrar.");
+                consultaString = Console.ReadLine();
+                usuarioVoluntario = int.Parse(consultaString);
+                verificaResposta = digitosCertosDuasOpçoes(consultaString);
+                if(verificaResposta == true){
+                  if( consulta == 1 || consulta == 2){
+                    usuarioVoluntario = int.Parse(consultaString);
+                  }
+                  else{
+                    sair = 1;
+                  }   
+                }
+              }  
             }
+          }  
             //CONFIRMAR CADASTRO OU CADASTRAR USUÁRIO.
             switch(usuarioVoluntario){
               //VOLUNTARIO CADASTRADO
               case 1:
-                Console.WriteLine("Informe seu número de voluntario:");
+                Console.WriteLine("Informe seu número de voluntário:");
                 numeroVoluntario=int.Parse(Console.ReadLine());
                 //CONFIRMAR CADASTRADO VOLUNTARIO
                 int numeroVoluntarioConfirmado = Voluntario.verificaCadastradoVoluntario(numeroVoluntario,Voluntario.retornaVetorVoluntario());
@@ -56,24 +75,30 @@ class MainClass {
                   sair = 0;
                 }else{
                   //MATCH VOLUNTARIO/CACHORRO.
-                  Console.WriteLine("Se deseja procurar seu companheiro agora digite 1. ");
-                  Console.WriteLine("Se deseja consultar seu você tem agendamentodigite 2");
-                  Console.WriteLine("Se deseja finalizar o programa digite 0 para sair");
-                  int resposta = int.Parse(Console.ReadLine());
-                 
-                  if(resposta == 1){
-                    Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
-                    Match voluntariomatch = new Match(voluntario);
-                    Match.match(vetorCachorroCompativel,voluntario);
-                  }else{
-                    if(resposta == 2){
-                      Agenda.verificaAgendaVoluntario(Agenda.retornaVetorAgenda(),voluntario);
-                    }else{
-                      sair = 1;
-                    }
-                   
-                  }
+                  verificaResposta = false;
+                  while(verificaResposta == false){
+                    Console.WriteLine("Se deseja procurar seu companheiro digite 1. ");
+                    Console.WriteLine("Se deseja consultar seus agendamentos digite 2");
+                    Console.WriteLine("Se deseja finalizar o programa digite 0");
+                    consultaString = Console.ReadLine();
+                    int resposta = int.Parse(consultaString);
+                    verificaResposta = digitosCertosDuasOpçoes(consultaString);
                   
+                    if(resposta == 1){
+                      Cachorro [] vetorCachorroCompativel = Match.verificaCachorroCompatibilidade (voluntario,Cachorro.retornaVetorCachorro());
+                      Match voluntariomatch = new Match(voluntario);
+                      Match.match(vetorCachorroCompativel,voluntario);
+                  }
+                    else{
+                      if(resposta == 2){
+                      Agenda.verificaAgendaVoluntario(Agenda.retornaVetorAgenda(),voluntario);
+                      }
+                      else{
+                      sair = 1;
+                      }
+                   
+                    }
+                  }
                 
                 }
               break;
@@ -94,14 +119,31 @@ class MainClass {
           break;
           //CACHORRO
           case 2:
-            Console.WriteLine("Digite 1 cachorro cadastrado  ou 2 para cadastrar: ");
-            usuarioCachorro = int.Parse(Console.ReadLine());
+            verificaResposta = false;
+            while(verificaResposta == false){
+              Console.WriteLine("Digite 1 para cachorro cadastrado ou 2 para se cadastrar: ");
+              consultaString = Console.ReadLine();
+              usuarioCachorro = int.Parse(consultaString);
+              verificaResposta = digitosCertosDuasOpçoes(consultaString);
+            } 
             while(usuarioCachorro  != 1 && usuarioCachorro  != 2 ){
               Console.Clear();
-              Console.WriteLine("Digite 1 usuario cadastrado  ou 2 para cadastrar.");
-              usuarioCachorro = int.Parse(Console.ReadLine());
-
-            }
+              verificaResposta = false;
+              while(verificaResposta == false){
+                Console.WriteLine("Digite 1 para usuario cadastrado ou 2 para se cadastrar.");
+                consultaString = Console.ReadLine();
+                usuarioCachorro = int.Parse(consultaString);
+                verificaResposta = digitosCertosDuasOpçoes(consultaString);
+                if(verificaResposta == true){
+                  if( consulta == 1 || consulta == 2){
+                    usuarioCachorro = int.Parse(consultaString);
+                  }
+                  else{
+                    sair = 1;
+                  }
+                }      
+              }
+            }  
             switch(usuarioCachorro){
               //CACHORRO CADASTRADO
               case 1:
@@ -124,7 +166,7 @@ class MainClass {
                   //CONSULTAR SE TEM AGENDAMENTO
                   verificaResposta = false;
                   while(verificaResposta == false){
-                    Console.WriteLine(" Se deseja consultar seu você tem agendamento digite 1 ou 0 para finalizar programa");
+                    Console.WriteLine(" Se deseja consultar seus agendamentos digite 1, ou digite 0 para finalizar o programa");
                     consultaString = Console.ReadLine();
                     consulta = int.Parse(consultaString);
                     verificaResposta = digitosCertosDuasOpçoes(consultaString);
@@ -174,7 +216,7 @@ class MainClass {
     //Tratar a entrada inicial
     if(codigoAscii < 47 || codigoAscii > 52 || entrada.Length > 1){
       Console.WriteLine("Opção inválida");
-      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
+      Console.WriteLine("Digite uma opção correta ou 0 para sair");
       return false;
     }
     return true;  
@@ -185,7 +227,7 @@ class MainClass {
     //Tratar a entrada inicial
     if(codigoAscii < 47 || codigoAscii > 50 || entrada.Length > 1){
       Console.WriteLine("Opção inválida");
-      Console.WriteLine("Digite uma opção correta ou 0 prar sair");
+      Console.WriteLine("Digite uma opção correta ou 0 para sair");
       return false;
     }
     return true;  

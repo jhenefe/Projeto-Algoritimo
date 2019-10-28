@@ -46,7 +46,7 @@ class Agenda{
        if(cachorroTelefoneDono == telefoneCachorroVerificar ){
          if(consulta ==1){
             Console.WriteLine("Informções Agendamento:");
-            Console.WriteLine("Voluntario {0}",vetorAgenda[0]);
+            Console.WriteLine("Voluntário {0}",vetorAgenda[0]);
             Console.WriteLine(vetorAgenda[5]);
             Console.WriteLine("Telefone contato: {0}",vetorAgenda[2]);
             System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5));

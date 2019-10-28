@@ -86,7 +86,7 @@ class Cachorro{
         Console.WriteLine("Bem vindo dono(a) do(a) pet {0}",cachorro.getNome());
         confirmaCachorro = 0;
       }else{
-        Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
+        Console.WriteLine("Opção inválida.Por favor digite o número de usuário válido para verificação ou 0 para sair:");
         confirmaCachorro = int.Parse( Console.ReadLine());
         
       }
@@ -98,7 +98,7 @@ class Cachorro{
   
   public static void cadastrarCachorro( int numeroLinhaArquiCachorro){
     Console.WriteLine("Cachorro número: {0}", (numeroLinhaArquiCachorro+1));
-    Console.WriteLine("Por favor preencha as informações a seguir conforme solicitado: Nome / Raça / Sexo / Cor / Porte / Horário disponível/Telefone do Responsável pelo pet");
+    Console.WriteLine("Por favor preencha as informações a seguir conforme solicitado: Nome / Raça / Sexo / Cor / Porte /Dia-Turno/Telefone do Responsável pelo pet");
     string dadosCachorro = Console.ReadLine();
 
     FileStream arqCachorro= new FileStream("Cachorro.text",FileMode.Append,FileAccess.Write);

@@ -98,7 +98,7 @@ class Voluntario{
         confirmaVoluntario = 0;
         
       }else{
-        Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
+        Console.WriteLine("Opção inválida.Por favor digite um número de usuário válido para verificação ou 0 para sair:");
         confirmaVoluntario = int.Parse( Console.ReadLine());
         
       }
@@ -108,8 +108,8 @@ class Voluntario{
   } 
   
   public static void cadastrarUsuario( int numeroLinhasArquivoVolunatrio){
-    Console.WriteLine("Voluntario numero:{0}",( numeroLinhasArquivoVolunatrio+1));
-    Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome,Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
+    Console.WriteLine("Voluntário número:{0}",( numeroLinhasArquivoVolunatrio+1));
+    Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome/Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
     string dados = Console.ReadLine();
     
     FileStream arqvoluntarios = new FileStream("Voluntario.text",FileMode.Append,FileAccess.Write);
