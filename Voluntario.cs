@@ -85,7 +85,7 @@ class Voluntario{
         Console.WriteLine("Bem vindo(a) {0} !",voluntario.getNome());
         confirmaVoluntario = 0; 
       }else{
-        Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
+        Console.WriteLine("Opção inválida.Por favor digite o número de usuário válido para verificação, ou 0 para sair:");
         confirmaVoluntario = int.Parse( Console.ReadLine());     
       }
     }  
@@ -93,10 +93,10 @@ class Voluntario{
   } 
   //CADASTRA O VOLUNTARIO NO ARQUIVO
   public static void cadastrarUsuario( int numeroLinhasArquivoVolunatrio){
-    Console.WriteLine("Voluntario numero:{0}",( numeroLinhasArquivoVolunatrio+1));
-    Console.WriteLine("Por Favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome,Idade/CPF/Telefone/disponibilidade dia-turno/bairro");
-    Console.WriteLine("Sem espaço se o nome for composto,letras maiúsculas, caracteres especiais !,* ect e Ç");
-    Console.WriteLine("Exemplo: caio/10/1124503/27554682/terca-tarde/colinadelarajeiras");
+    Console.WriteLine("Voluntário número:{0}",( numeroLinhasArquivoVolunatrio+1));
+    Console.WriteLine("Por favor passe as seguintes informações para criar seu cadastro seguindo o modelo: Nome/Idade/CPF/Telefone/Disponibilidade Dia-Turno/Bairro");
+    Console.WriteLine("Sem espaço se o nome for composto, letras maiúsculas, caracteres especiais !,* ect e Ç");
+    Console.WriteLine("Exemplo: Caio/10/1124503/27554682/terca-tarde/colinadelarajeiras");
     string dados = Console.ReadLine();
     
     FileStream arqvoluntarios = new FileStream("Voluntario.text",FileMode.Append,FileAccess.Write);

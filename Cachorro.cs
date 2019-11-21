@@ -78,7 +78,7 @@ class Cachorro{
         Console.WriteLine("Bem vindo dono(a) do(a) pet {0}",cachorro.getNome());
         confirmaCachorro = 0;
       }else{
-        Console.WriteLine("Opção inválida.Por favor digite o numero de usuario válido para verificação ou 0 para sair:");
+        Console.WriteLine("Opção inválida. Por favor digite um número de usuário válido para verificação, ou 0 para sair:");
         confirmaCachorro = int.Parse( Console.ReadLine());
         
       }
@@ -130,7 +130,7 @@ class Cachorro{
     Console.WriteLine(" Raça: {0}",cachorroMatch.getRaça());
     Console.WriteLine(" Dia: {0}",cachorroMatch.getDiaCachorro());
     Console.WriteLine(" Turno: {0}",cachorroMatch.getTurnoCachorro());
-    Console.WriteLine(" Numero de telefone do Dono: {0}",cachorroMatch.getTelefoneDono());
+    Console.WriteLine(" Número de telefone do Dono: {0}",cachorroMatch.getTelefoneDono());
     
   }
 

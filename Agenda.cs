@@ -40,8 +40,8 @@ class Agenda{
       if(nomeCachorroVerificar == cachorroAgendado){
        if(cachorroTelefoneDono == telefoneCachorroVerificar ){
          if(consulta == 1){
-            Console.WriteLine("Informções Agendamento:");
-            Console.WriteLine("Voluntario {0}",vetorAgenda[0]);
+            Console.WriteLine("Informações Agendamento:");
+            Console.WriteLine("Voluntário {0}",vetorAgenda[0]);
             Console.WriteLine(vetorAgenda[5]);
             Console.WriteLine("Telefone contato: {0}",vetorAgenda[2]);
             System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5));
@@ -68,11 +68,11 @@ class Agenda{
       string cpfAgenda = vetorAgenda[1];
       if(nomeVoluntarioVerificar == voluntarioAgendado){
        if(cpfVoluntarioVerificar == cpfAgenda ){
-          Console.WriteLine("Informções Agendamento:");
+          Console.WriteLine("Informações Agendamento:");
           Console.WriteLine("Cachorro");
           Console.WriteLine(vetorAgenda[3]);
           Console.WriteLine(vetorAgenda[5]);
-          Console.WriteLine("telefone contato Dono: {0}",vetorAgenda[2]);
+          Console.WriteLine("Telefone contato Dono: {0}",vetorAgenda[2]);
         }
       }
       cont++;  

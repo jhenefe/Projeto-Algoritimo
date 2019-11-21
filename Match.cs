@@ -92,7 +92,7 @@ class Match{
           Console.Clear();
         }else{
           Console.WriteLine("Cachorro já agendado.");
-          Console.WriteLine("Digite 1 para  escolher outro cacchorro digite  0 para finalizar");
+          Console.WriteLine("Digite 1 para  escolher outro cacchorro, digite  0 para finalizar");
           finalizarAgendamento=int.Parse (Console.ReadLine());
         
           
